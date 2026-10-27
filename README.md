@@ -15,3 +15,43 @@ _Always look on the bright side of light!_ A repository on the [art of light and
 > (whistle) Always look on the white side of light...  
 
 Monty Python
+
+## Example
+
+```julia
+using SpeedyWeather, Chiaroscuro
+
+# define your albedo function
+function albedo(inputs)
+  (; land_fraction, snow_depth) = inputs
+  a = land_fraction*0.4 + (1 - land_fraction)*0.1 + 0.9*5*min(snow_depth, 0.2)
+  return clamp(a, 0, 1)
+end
+
+# create a simulation 
+spectral_grid = SpectralGrid(truncation=32, nlayers=8)
+my_albedo = ChiaroscuroAlbedo(albedo)
+model = PrimitiveWetModel(spectral_grid; albedo=my_albedo)
+simulation = initialize!(model)
+
+# then run! simulation for 30 days
+run!(simulation, period=Day(30))
+
+# evaluate 
+evaluate(my_albedo, simulation)
+
+# and visualise
+using GLMakie
+globe(my_albedo, simulation)
+```
+
+## Installation
+
+Not a registered package so do
+
+```julia
+julia> ] add https://github.com/SpeedyWeather/Chiaroscuro.jl
+```
+
+where `]` opens Julia's package manager Pkg.jl.
+
