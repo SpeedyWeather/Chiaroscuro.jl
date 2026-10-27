@@ -77,8 +77,8 @@ run!(simulation, period=Day(30))
 evaluate(my_albedo, simulation)
 
 # and visualise
-using GLMakie
-globe(my_albedo, simulation)
+using CairoMakie
+heatmap(my_albedo, simulation)
 ```
 
 And you have the basic setup to define an albedo, run a simulation with it, evaluate and visualise.
@@ -91,23 +91,23 @@ First [install Julia](https://julialang.org/install/) via `juliaup` (the recomme
 Chiaroscuro.jl is a Julia package so from the Julia REPL you can then do
 
 ```julia
-julia> ] add https://github.com/SpeedyWeather/Chiaroscuro.jl, SpeedyWeather, GLMakie
+julia> ] add https://github.com/SpeedyWeather/Chiaroscuro.jl, SpeedyWeather, CairoMakie
 ```
 
 where `]` opens Julia's package manager interactively.
 [SpeedyWeather](https://speedyweather.github.io/SpeedyWeatherDocumentation/dev/)
 is a dependency anyway and you will need its exported function and types to run a simulation.
-[GLMakie](https://docs.makie.org/stable/explanations/backends/backends) is [Makie](https://docs.makie.org/stable/)'s
-backend we use for visualisation: static and 3D+interactive. Don't use CairoMakie, as it will not render the 3D properties correctly.
+[CairoMakie](https://docs.makie.org/stable/explanations/backends/backends) is a [Makie](https://docs.makie.org/stable/)
+backend we use for visualisation, but any other Makie backend (e.g. GLMakie) works too.
 Equivalently, you can do
 
 ```julia
 using Pkg
 Pkg.add(url="https://github.com/SpeedyWeather/Chiaroscuro.jl")
-Pkg.add(["SpeedyWeather", "GLMakie"])
+Pkg.add(["SpeedyWeather", "CairoMakie"])
 ```
 
-and after all dependencies are installed with `julia> using Chiaroscuro, SpeedyWeather, GLMakie` you load the packages,
+and after all dependencies are installed with `julia> using Chiaroscuro, SpeedyWeather, CairoMakie` you load the packages,
 ready to look on the bright side of light!
 
 You can use this software in different ways,

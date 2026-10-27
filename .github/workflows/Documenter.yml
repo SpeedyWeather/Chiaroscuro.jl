@@ -12,8 +12,6 @@ jobs:
     name: Build and deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Install binary dependencies
-        run: sudo apt-get update && sudo apt-get install -y xorg-dev mesa-utils xvfb libgl1 freeglut3-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev
       - uses: actions/checkout@v6
       - uses: julia-actions/setup-julia@latest
         with:
@@ -21,16 +19,12 @@ jobs:
       - uses: julia-actions/cache@v2
       - name: Install documentation dependencies
         run: |
-          xvfb-run -s '-screen 0 1024x768x24' julia --project=docs -e '
+          julia --project=docs -e '
             using Pkg
             Pkg.instantiate()'
-        env:
-          DISPLAY: ':0'
       - uses: julia-actions/julia-docdeploy@v1
         with:
-          prefix: xvfb-run
           install-package: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # If authenticating with GitHub Actions token
           DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }} # If authenticating with SSH deploy key
-          DISPLAY: ':0'

@@ -2,7 +2,7 @@ using SpeedyWeather
 using Chiaroscuro
 using Documenter
 using Printf
-using GLMakie
+using CairoMakie
 
 DocMeta.setdocmeta!(Chiaroscuro, :DocTestSetup, :(using Chiaroscuro); recursive = true)
 
@@ -30,7 +30,7 @@ end
 function run_and_evaluate(albedo_function)
     albedo, simulation = run_simulation(albedo_function)
     evaluation = evaluate(albedo, simulation)
-    figure = globe(albedo, simulation)
+    figure = heatmap(albedo, simulation)
     return evaluation, figure
 end
 

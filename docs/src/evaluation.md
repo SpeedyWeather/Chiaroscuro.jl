@@ -11,14 +11,17 @@ and returns several scores, all a root mean square error (RMSE) in Kelvin. Lower
 
 ## Score
 
-The total `score` is the RMSE of the surface temperature ``T`` against the
-reference ``T_{ref}`` over all ``N`` grid points ``i``
+The total `score` is the area-weighted RMSE of the surface air temperature ``T``
+on the last time step against the reference ``T_{ref}`` over all grid points ``i``
 
 ```math
-\text{RMSE} = \sqrt{\frac{1}{N} \sum_i \left(T_i - T_{ref,i}\right)^2}
+\text{RMSE} = \sqrt{\frac{\sum_i w_i \left(T_i - T_{ref,i}\right)^2}{\sum_i w_i}}
 ```
 
-The reference surface temperature is not yet provided.
+with weights ``w_i`` the area of each grid cell, so that the many small grid cells near
+the poles don't count more than the large ones near the equator.
+The reference surface temperature is not yet provided, for now a made-up reference of 300K
+at the equator decreasing to 250K at the poles is used.
 
 ## Regional scores
 
@@ -28,8 +31,8 @@ certain regions of the globe
 | Score | Region |
 | :---- | :----- |
 | `score` | Global, used to rank submissions on the [Chiaroscuro leaderboard](@ref) |
-| `land_score` | Land grid points only |
-| `ocean_score` | Ocean grid points only |
+| `land_score` | Land, every grid cell additionally weighted by its land fraction |
+| `ocean_score` | Ocean, every grid cell additionally weighted by its ocean fraction (1 - land fraction) |
 | `tropical_score` | Tropics, between 30˚S and 30˚N |
 | `polar_score` | Polar regions, poleward of 60˚N and 60˚S |
 

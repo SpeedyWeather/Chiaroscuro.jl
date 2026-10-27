@@ -68,9 +68,12 @@ run!(simulation, period=Day(30))
 After the simulation ran, you can visualise the albedo on the last time step with
 
 ```julia
-using GLMakie
-globe(my_albedo, simulation)
+using CairoMakie
+heatmap(my_albedo, simulation)
 ```
 
-which creates an interactive 3D globe you can rotate and zoom into.
+which creates a map of your albedo (left) and its difference to SpeedyWeather's
+default albedo (right), both evaluated on the last time step of the simulation.
+The default albedo blends open ocean (0.06) and sea ice (0.6) by sea ice concentration,
+and over land bare soil, vegetation and snow cover.
 The same plot is also shown for every submission in the [List of submissions](@ref).
