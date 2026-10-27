@@ -1,6 +1,6 @@
 # Chiaroscuro.jl
 
-_Always look on the bright side of life!_ A repository on the [art of light and darkness](https://en.wikipedia.org/wiki/Chiaroscuro) of planet Earth.
+_Always look on the bright side of light!_ A repository on the [art of light and darkness](https://en.wikipedia.org/wiki/Chiaroscuro) of planet Earth.
 
 > “Some say snow, and some say cloud,  
 > Some say ‘paint the deserts proud!’,  
