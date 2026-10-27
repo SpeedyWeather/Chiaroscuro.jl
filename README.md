@@ -18,7 +18,42 @@ _Always look on the bright side of light!_ A repository on the [art of light and
 
 Monty Python
 
+## The Albedo Problem
+
+[Albedo](https://en.wikipedia.org/wiki/Albedo) determines how much sunshine is reflected by the Earth's surface.
+You may think of it as a time-constant boundary condition to a simple climate model but in fact, it's not.
+
+Albedo depends on many things: The ocean is pretty dark if you look from above, but it nicely reflects a sunset.
+A stormy ocean is full of white sea spray and the Arctic ocean has floating sea ice, preventing snow from melting in the ocean below.
+Snow is much brighter than a dark forest it covers, deforestation often leaves behind a more reflective bare soil.
+And wet and dry seasons widely change the presence of vegetation.
+
+At the same time, albedo directly scales the amount of energy the Earth's surface receives from the sun.
+A small difference in albedo makes a big difference in the Earth's energy budget.
+Can you learn what albedo should be to better predict surface temperatures?
+
+<img width="1347" height="1343" alt="octant_shortwave_1793124601 Background Removed" src="https://github.com/user-attachments/assets/89872a92-6b00-45d5-9cde-7514f30e6dd9" />
+
+Shortwave albedo over land as measured by the [MODIS](https://en.wikipedia.org/wiki/Moderate_Resolution_Imaging_Spectroradiometer) satellite sensors.
+
+## The Chiaroscuro Albedo Challenge
+
+N different variables from the ERA5 reanalysis are available at X.
+These serve as N scalar predictors for albedo (1 scalar predictand) which is also provided.
+Formulate these as a function `albedo(inputs)` using only scalar arithmetic, i.e.
+
+- `+`, `-`, `/`, `*`, `sqrt`, `cbrt` ...
+- trigonometric functions like `sin`, `cos`, `exp`, `log`, ...
+- `abs`, `mod`, `max`, `min`, ... including `if`
+- random numbers `rand`, `randn` ...
+
+And return albedo as a floating-point number between 0 and 1 inclusive.
+
 ## Example
+
+Write up your function in Julia, using any of the predictors as listed here,
+wrap it into a `ChiaroscuroAlbedo` type as shown below, setup and run a
+SpeedyWeather simulation. You can then `evaluate` and visualise your results!
 
 ```julia
 using SpeedyWeather, Chiaroscuro
