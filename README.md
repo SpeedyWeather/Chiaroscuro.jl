@@ -1,5 +1,7 @@
 # Chiaroscuro.jl
-[![Build Status](https://github.com/milankl/Chiaroscuro.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/milankl/Chiaroscuro.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Build Status](https://github.com/SpeedyWeather/Chiaroscuro.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/SpeedyWeather/Chiaroscuro.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![docs](https://img.shields.io/badge/documentation-latest_release-blue.svg)](https://speedyweather.github.io/Chiaroscuro.jl/stable/)
+[![docs](https://img.shields.io/badge/documentation-main-blue.svg)](https://speedyweather.github.io/Chiaroscuro.jl/dev/)
 
 _Always look on the bright side of light!_ A repository on the [art of light and darkness](https://en.wikipedia.org/wiki/Chiaroscuro) of planet Earth.
 
