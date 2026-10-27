@@ -1,0 +1,8 @@
+[deps]
+Chiaroscuro = "ef28b67d-62c9-445f-88f3-00f7cc5b8007"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
+
+[sources]
+Chiaroscuro = { path = ".." }
