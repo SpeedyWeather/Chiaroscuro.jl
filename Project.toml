@@ -1,9 +1,23 @@
 name = "Chiaroscuro"
 uuid = "ef28b67d-62c9-445f-88f3-00f7cc5b8007"
-authors = ["Milan Kloewer <milankloewer@gmx.de> and contributors"]
 version = "1.0.0-DEV"
+authors = ["Milan Kloewer <milankloewer@gmx.de> and contributors"]
+
+[deps]
+DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
+GeoMakie = "db073c08-6b98-4ee5-b6a4-5efafb3259c6"
+ImageIO = "82e4d734-157c-48bb-816b-45c225c6df19"
+Makie = "ee78f7c6-11fb-53f2-987a-cfe4a2b5a57a"
+Proj = "c94c279d-25a6-4763-9509-64d165bea63e"
+SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 
 [compat]
+DocStringExtensions = "0.9.5"
+GeoMakie = "0.7.18"
+ImageIO = "0.6.10"
+Makie = "0.24.16"
+Proj = "1.9.0"
+SpeedyWeather = "0.23.0"
 julia = "1.10.10"
 
 [extras]

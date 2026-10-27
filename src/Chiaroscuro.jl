@@ -1,5 +1,9 @@
 module Chiaroscuro
 
-# Write your package code here.
+using SpeedyWeather, Adapt, DocStringExtensions
+
+include("albedo.jl")
+include("evaluate.jl")
+include("visualisation.jl")
 
 end
