@@ -12,7 +12,7 @@ Proj = "c94c279d-25a6-4763-9509-64d165bea63e"
 SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 
 [compat]
-DocStringExtensions = "0.9.5"
+DocStringExtensions = "0.9.5, 0.10"
 GeoMakie = "0.7.18"
 ImageIO = "0.6.10"
 Makie = "0.24.16"
