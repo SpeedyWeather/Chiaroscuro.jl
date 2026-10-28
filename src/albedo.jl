@@ -9,8 +9,8 @@ end
 Adapt.@adapt_structure ChiaroscuroAlbedo
 SpeedyWeather.initialize!(::ChiaroscuroAlbedo, ::PrimitiveEquation) = nothing
 
-@propagate_inbounds function albedo!(ij, albedo, vars, scheme::ChiaroscuroAlbedo, model)
-    ts = model.time_stepping
+@propagate_inbounds function SpeedyWeather.albedo!(ij, albedo, vars, scheme::ChiaroscuroAlbedo, model)
+    ts = time_stepper(model.time_stepping, :ocean)
 
     # atmosphere
 
