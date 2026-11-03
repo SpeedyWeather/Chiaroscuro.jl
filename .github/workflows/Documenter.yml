@@ -16,7 +16,7 @@ jobs:
       - uses: julia-actions/setup-julia@latest
         with:
           version: '1.13'
-      - uses: julia-actions/cache@v2
+      - uses: julia-actions/cache@v3
       - name: Install documentation dependencies
         run: |
           julia --project=docs -e '
