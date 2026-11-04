@@ -21,8 +21,8 @@ using Test
             inputs = Chiaroscuro.albedo_inputs(ij, vars, my_albedo, model)
             @test all(isfinite, values(inputs))
         end
-        @test 0 <= inputs.time_of_day < 24
-        @test 1 <= inputs.day_of_year <= 366
+        @test 0 <= inputs.day_angle < 2π
+        @test 0 <= inputs.year_angle < 2π
         @test 0 <= inputs.snow_cover <= 1
     end
 

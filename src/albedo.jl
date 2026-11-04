@@ -26,8 +26,10 @@ documentation for a list of all variables with units and description."""
     latd = model.geometry.latds[ij]
     lond = model.geometry.londs[ij]
     time = vars.prognostic.clock.time
-    time_of_day = Dates.hour(time) + Dates.minute(time) / 60 + Dates.second(time) / 3600
-    day_of_year = Dates.dayofyear(time)
+    seconds_of_day = Dates.hour(time) * 3600 + Dates.minute(time) * 60 + Dates.second(time)
+    day_angle = 2π * seconds_of_day / 86400     # 0 at midnight UTC, π at noon UTC
+    year_angle = 2π * (Dates.dayofyear(time) - 1 + seconds_of_day / 86400) / Dates.daysinyear(time) # 0 at 1 Jan 00UTC
+    cos_zenith = parameterizations.cos_zenith[ij]
 
     # surface boundary conditions
     orography = model.orography.orography[ij]
@@ -43,7 +45,6 @@ documentation for a list of all variables with units and description."""
     surface_air_density = parameterizations.surface_air_density[ij]
     surface_wind_speed = parameterizations.surface_wind_speed[ij]
     surface_roughness = parameterizations.momentum_roughness[ij]
-    cos_zenith = parameterizations.cos_zenith[ij]
     rain_rate = parameterizations.rain_rate[ij]
     snow_rate = parameterizations.snow_rate[ij]
 
@@ -66,11 +67,11 @@ documentation for a list of all variables with units and description."""
     low_vegetation_leaf_area = parameterizations.land.low_vegetation_leaf_area[ij]
 
     return (;
-        latd, lond, time_of_day, day_of_year,
+        latd, lond, day_angle, year_angle, cos_zenith,
         orography, land_fraction,
         surface_vorticity, surface_divergence, surface_humidity, surface_pressure,
         surface_air_temperature, surface_air_density, surface_wind_speed, surface_roughness,
-        cos_zenith, rain_rate, snow_rate,
+        rain_rate, snow_rate,
         sea_surface_temperature, sea_ice_concentration,
         soil_temperature_1, soil_temperature_2, soil_moisture_1, soil_moisture_2,
         snow_depth, snow_cover,
