@@ -38,15 +38,67 @@ Arrays, global variables that change during the simulation or reading in data ar
 
 ## Inputs
 
-The following inputs are currently available in `inputs` at every grid point
+The following inputs are available in `inputs` at every grid point. Atmospheric variables
+are taken from the lowermost model layer and all are evaluated on the current time step,
+after the surface fluxes, condensation and convection have been computed,
+just before radiation.
 
-| Name | Description | Unit |
-| :--- | :---------- | :--- |
-| `sea_surface_temperature` | Sea surface temperature | K |
-| `sea_ice_concentration` | Fraction of the grid cell covered by sea ice | [0, 1] |
+### Position and time
 
-More inputs from the atmosphere and land (e.g. land fraction, snow depth, soil moisture,
-vegetation) are to follow.
+| Name | Unit | Description |
+| :--- | :--- | :---------- |
+| `latd` | ˚N | Latitude, -90˚N (South Pole) to 90˚N (North Pole) |
+| `lond` | ˚E | Longitude, 0˚E to 360˚E |
+| `time_of_day` | h | Time of day (UTC), 0 to 24 |
+| `day_of_year` | 1 | Day of the year, 1 to 366 |
+| `cos_zenith` | 1 | Cosine of the solar zenith angle, 0 at night, 1 for the sun directly overhead |
+
+### Surface boundary conditions
+
+| Name | Unit | Description |
+| :--- | :--- | :---------- |
+| `orography` | m | Surface height above sea level |
+| `land_fraction` | 1 | Fraction of the grid cell covered by land, 0 (ocean) to 1 (land) |
+| `surface_roughness` | m | Momentum roughness length of the surface |
+
+### Atmosphere
+
+| Name | Unit | Description |
+| :--- | :--- | :---------- |
+| `surface_air_temperature` | K | Air temperature at the surface |
+| `surface_pressure` | Pa | Surface pressure |
+| `surface_air_density` | kg/m³ | Air density at the surface |
+| `surface_humidity` | kg/kg | Specific humidity in the lowermost layer |
+| `surface_wind_speed` | m/s | Wind speed at the surface |
+| `surface_vorticity` | 1/s | Relative vorticity in the lowermost layer |
+| `surface_divergence` | 1/s | Divergence in the lowermost layer |
+| `rain_rate` | m/s | Rain rate, large-scale and convective |
+| `snow_rate` | m/s | Snow fall rate, large-scale and convective |
+
+### Ocean and sea ice
+
+| Name | Unit | Description |
+| :--- | :--- | :---------- |
+| `sea_surface_temperature` | K | Sea surface temperature |
+| `sea_ice_concentration` | 1 | Fraction of the ocean covered by sea ice, 0 to 1 |
+
+### Land
+
+| Name | Unit | Description |
+| :--- | :--- | :---------- |
+| `soil_temperature_1` | K | Temperature of the upper soil layer |
+| `soil_temperature_2` | K | Temperature of the lower soil layer |
+| `soil_moisture_1` | 1 | Soil moisture of the upper soil layer, fraction of capacity |
+| `soil_moisture_2` | 1 | Soil moisture of the lower soil layer, fraction of capacity |
+| `snow_depth` | m | Snow depth in liquid water equivalent |
+| `snow_cover` | 1 | Fraction of the land covered by snow, 0 to 1, computed from `snow_depth` as `snow_depth / (snow_depth + 0.05m)` as in SpeedyWeather's default albedo |
+| `high_vegetation_cover` | 1 | Fraction of the grid cell covered by high vegetation (e.g. forest), 0 to 1 |
+| `low_vegetation_cover` | 1 | Fraction of the grid cell covered by low vegetation (e.g. grass), 0 to 1 |
+| `high_vegetation_leaf_area` | m²/m² | Leaf area index of high vegetation |
+| `low_vegetation_leaf_area` | m²/m² | Leaf area index of low vegetation |
+
+Land variables are also defined over the ocean but are only meaningful where `land_fraction > 0`,
+likewise ocean variables are only meaningful where `land_fraction < 1`.
 
 ## ChiaroscuroAlbedo
 
