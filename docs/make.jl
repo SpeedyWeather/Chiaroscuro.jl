@@ -133,7 +133,7 @@ end
 @info "Building leaderboard.md"
 open(joinpath(@__DIR__, "src/leaderboard.md"), "w") do mdfile
     header = read(joinpath(@__DIR__, "headers/leaderboard_header.md"), String)
-    println(mdfile, header)
+    print(mdfile, header)   # header ends with the table header, rows have to follow without blank line
 
     for name in all_names_ranked
         dict = all_submissions[name]
