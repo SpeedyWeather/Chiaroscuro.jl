@@ -13,16 +13,20 @@ RingGrids = "d1845624-ad4f-453b-8ff4-a8db365bf3a7"
 Proj = "c94c279d-25a6-4763-9509-64d165bea63e"
 SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 
+[weakdeps]
+FFTA = "b86e33f2-c0db-4aa1-a6e0-ab43e668529e"
+
 [compat]
 Adapt = "4"
 DocStringExtensions = "0.9.5"
+FFTA = "<0.3.2"
 GeoMakie = "0.7.18"
 ImageIO = "0.6.10"
 Makie = "0.24.16"
 Proj = "1.9.0"
 RingGrids = "1"
 SpeedyWeather = "0.24"
-julia = "1.10.10"
+julia = "1.11"
 
 [sources]
 SpeedyWeather = {url = "https://github.com/SpeedyWeather/SpeedyWeather.jl", subdir = "SpeedyWeather", rev = "main"}
