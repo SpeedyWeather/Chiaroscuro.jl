@@ -1,6 +1,6 @@
 module Chiaroscuro
 
-using SpeedyWeather, Adapt, DocStringExtensions
+using SpeedyWeather, Adapt, DocStringExtensions, Dates
 using RingGrids
 import Makie
 

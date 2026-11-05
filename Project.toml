@@ -4,6 +4,7 @@ version = "1.0.0-DEV"
 authors = ["Milan Kloewer <milankloewer@gmx.de> and contributors"]
 
 [deps]
+Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 Adapt = "79e6a3ab-5dfb-504d-930d-738a2a938a0e"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 GeoMakie = "db073c08-6b98-4ee5-b6a4-5efafb3259c6"
@@ -17,6 +18,7 @@ SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 FFTA = "b86e33f2-c0db-4aa1-a6e0-ab43e668529e"
 
 [compat]
+Dates = "1"
 Adapt = "4"
 DocStringExtensions = "0.9.5"
 FFTA = "<0.3.2"
