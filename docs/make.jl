@@ -88,7 +88,7 @@ for (i, name) in enumerate(all_names_ranked)
 end
 nsubmissions = length(all_names_ranked)
 
-format_score(x) = isfinite(x) ? @sprintf("%.3f", x) : "failed"
+format_score(x) = isfinite(x) ? @sprintf("%.4f", x) : "failed"
 
 # GENERATE SUBMISSIONS LIST
 @info "Building submissions.md"
@@ -109,12 +109,13 @@ open(joinpath(@__DIR__, "src/submissions.md"), "w") do mdfile
 
         if isnothing(dict[:error])
             # show evaluation
-            println(mdfile, "Evaluation:")
-            println(mdfile, "```julia")
-            println(mdfile, dict[:evaluation])
-            println(mdfile, "```")
+            println(mdfile, "Evaluation, RMSE in Kelvin:\n")
+            for (s, value) in pairs(dict[:evaluation])
+                println(mdfile, "- `$s`: ", format_score(value))
+            end
+            println(mdfile)
 
-            # albedo on the last time step
+            # albedo and surface air temperature on the last time step
             name_without_spaces = replace(name, " " => "_")
             path = joinpath(@__DIR__, "src", "submission_$name_without_spaces.png")
             @info "Saving figure to $path"

@@ -226,8 +226,10 @@ using CairoMakie
 heatmap(my_albedo, simulation)
 ```
 
-which creates a map of your albedo (left) and its difference to SpeedyWeather's
-default albedo (right), both evaluated on the last time step of the simulation.
+which creates a map of your albedo (top left) and its difference to SpeedyWeather's
+default albedo (top right), and below the surface air temperature (bottom left) and its
+difference to the reference surface temperature (bottom right) which is what your albedo
+is scored on, see [Evaluation](@ref). All on the last time step of the simulation.
 The default albedo blends open ocean (0.06) and sea ice (0.6) by sea ice concentration,
 and over land bare soil, vegetation and snow cover.
 The same plot is also shown for every submission in the [List of submissions](@ref).
