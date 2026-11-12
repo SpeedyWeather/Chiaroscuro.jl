@@ -13,6 +13,19 @@ using Test
     simulation = initialize!(model)
     run!(simulation, period = Day(1))
 
+    @testset "albedo inputs" begin
+        vars, model = simulation.variables, simulation.model
+        inputs = Chiaroscuro.albedo_inputs(1, vars, my_albedo, model)
+        @test length(inputs) == 29
+        for ij in (1, length(vars.parameterizations.albedo) ÷ 2)
+            inputs = Chiaroscuro.albedo_inputs(ij, vars, my_albedo, model)
+            @test all(isfinite, values(inputs))
+        end
+        @test 0 <= inputs.day_angle < 2π
+        @test 0 <= inputs.year_angle < 2π
+        @test 0 <= inputs.snow_cover <= 1
+    end
+
     @testset "evaluate" begin
         evaluation = evaluate(my_albedo, simulation)
         for key in (:score, :land_score, :ocean_score, :tropical_score, :polar_score)
