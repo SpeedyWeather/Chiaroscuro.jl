@@ -2,6 +2,7 @@ using SpeedyWeather
 using Chiaroscuro
 using Documenter
 using Printf
+using Markdown
 using CairoMakie
 
 DocMeta.setdocmeta!(Chiaroscuro, :DocTestSetup, :(using Chiaroscuro); recursive = true)
@@ -88,6 +89,15 @@ for (i, name) in enumerate(all_names_ranked)
 end
 nsubmissions = length(all_names_ranked)
 
+# PYTHON EXAMPLES, run a .py file in docs/src with python3 during the docs build
+# and render its code (copy & pasteable into python) and output, used via @eval blocks
+function python_example(file::String)
+    path = joinpath(@__DIR__, "src", file)
+    code = read(path, String)
+    output = read(`python3 $path`, String)    # a failing script fails the docs build
+    return Markdown.parse("```python\n$code```\n\nOutput:\n\n```\n$output```")
+end
+
 format_score(x) = isfinite(x) ? @sprintf("%.4f", x) : "failed"
 
 # GENERATE SUBMISSIONS LIST
@@ -166,6 +176,7 @@ makedocs(;
             "Leaderboard" => "leaderboard.md",
             "List of submissions" => "submissions.md",
         ],
+        "Python examples" => "python.md",
         "Functions and types" => "functions_types.md",
     ],
     warnonly = [:missing_docs, :cross_references],
