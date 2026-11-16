@@ -9,4 +9,6 @@ SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 Chiaroscuro = {path = ".."}
 
 [compat]
+CairoMakie = "0.15.17"
+Documenter = "1.20.0"
 Printf = "<0.0.1, 1"
