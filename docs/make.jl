@@ -166,6 +166,7 @@ makedocs(;
             "Leaderboard" => "leaderboard.md",
             "List of submissions" => "submissions.md",
         ],
+        "Research directions" => "directions.md",
         "Functions and types" => "functions_types.md",
     ],
     warnonly = [:missing_docs, :cross_references],
