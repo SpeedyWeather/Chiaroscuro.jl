@@ -50,6 +50,9 @@ And specifically for submitting to Chiaroscuro:
 - [Chiaroscuro leaderboard](@ref)
 - [List of submissions](@ref)
 
+Beyond the leaderboard, see [Research directions](@ref) for open questions on online performance,
+robustness and generalisation, and uncertainty.
+
 ## Quick start
 
 After the [Installation](@ref) copy and paste this into your Julia REPL, notebook etc

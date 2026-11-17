@@ -82,6 +82,22 @@ using GLMakie
 globe(my_albedo, simulation)
 ```
 
+## Research directions
+
+Beyond the leaderboard, Chiaroscuro is a playground for open questions in data-driven parameterizations.
+See [Research directions](https://speedyweather.github.io/Chiaroscuro.jl/dev/directions/) in the documentation for more details and ideas.
+
+- **Online performance.** Parameterizations are often trained offline but used online.
+The model world is not the real world, and online there are feedback loops,
+like the ice-albedo feedback, that don't exist offline. Does a better offline fit give a better online score?
+- **Robustness and generalisation.** More predictors may increase skill but overfit,
+or use predictors that are correlated with albedo without causing it.
+Such functions often generalise poorly: to climate change, other climates,
+changed boundary conditions or even other planets.
+- **Uncertainty and model confidence.** No model is perfect, so what to do with the residual error?
+Represent it statistically with noise as an additional input, scaled to the uncertainty of the output.
+Repeated inference with varying noise then samples the uncertainty. Can you match the target distribution?
+
 ## Installation
 
 Not a registered package so do
