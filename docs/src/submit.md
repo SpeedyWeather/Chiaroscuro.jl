@@ -40,6 +40,8 @@ strings are used in the [List of submissions](@ref) and the [Chiaroscuro leaderb
 2. Only scalar arithmetic is allowed in your albedo function, see [Albedo](@ref).
 3. Simulations use SpeedyWeather's `PrimitiveWetModel` in its default configuration at T32 spectral resolution and 8 vertical layers, run for 30 days.
 4. Submissions are ranked by `score` following the [Evaluation](@ref), lower is better.
+   This is evaluated on the whole globe, although you only receive data for the eastern hemisphere,
+   see [Generalisation score](@ref).
 5. You can submit up to 10 unique submissions alone or in groups (don't overload GitHub actions with a million submissions).
 
 In the end you can't really cheat because GitHub actions will evaluate your submission following these rules anyway...

@@ -31,7 +31,9 @@ end
 Evaluate the surface air temperature on the last time step of `simulation` that used the
 `albedo` against a `reference` surface temperature. Returns a `NamedTuple` of area-weighted root
 mean square errors [K] globally (`score`) and over land, ocean, the tropics (30˚S-30˚N) and
-polar regions (poleward of 60˚N/S). Land and ocean are weighted by the land fraction of each grid cell."""
+polar regions (poleward of 60˚N/S). Land and ocean are weighted by the land fraction of each grid cell.
+The `generalisation_score` is evaluated over the western hemisphere (180˚-360˚E) only, for which
+no reference data is given to the participants, who only receive data for the eastern hemisphere (0˚-180˚E)."""
 function evaluate(
         albedo::ChiaroscuroAlbedo,
         simulation::SpeedyWeather.AbstractSimulation;
@@ -48,7 +50,7 @@ function evaluate(
     T = temperature.data
     T_ref = reference.data
     weights = area_weights(grid)
-    _, latds = RingGrids.get_londlatds(grid)
+    londs, latds = RingGrids.get_londlatds(grid)
 
     return (
         score = rmse(T, T_ref, weights, 1),
@@ -56,5 +58,6 @@ function evaluate(
         ocean_score = rmse(T, T_ref, weights, 1 .- land_fraction),
         tropical_score = rmse(T, T_ref, weights, abs.(latds) .<= 30),
         polar_score = rmse(T, T_ref, weights, abs.(latds) .>= 60),
+        generalisation_score = rmse(T, T_ref, weights, mod.(londs, 360) .>= 180),
     )
 end
