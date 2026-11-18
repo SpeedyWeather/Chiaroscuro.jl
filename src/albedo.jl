@@ -57,8 +57,11 @@ documentation for a list of all variables with units and description."""
     soil_temperature_1 = soil_temperature[ij, 1]
     soil_temperature_2 = soil_temperature[ij, 2]
     soil_moisture = get_prognostic_step(vars.prognostic.land.soil_moisture, ts_land, scheme)
-    soil_moisture_1 = soil_moisture[ij, 1]
-    soil_moisture_2 = soil_moisture[ij, 2]
+
+    # SpeedyWeather uses soil moisture as fraction of field capacity, ERA5 uses volumetric m^3/m^3 units
+    field_capacity = parameterizations.land.soil_moisture_capacity[ij]
+    soil_moisture_1 = soil_moisture[ij, 1] * field_capacity
+    soil_moisture_2 = soil_moisture[ij, 2] * field_capacity
     snow_depth = get_prognostic_step(vars.prognostic.land.snow_depth, ts_land, scheme)[ij]
     snow_cover = min(SNOW_COVER(snow_depth, SNOW_DEPTH_SCALE), 1)
     high_vegetation_cover = parameterizations.land.high_vegetation_cover[ij]
