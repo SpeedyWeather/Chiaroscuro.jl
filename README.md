@@ -36,6 +36,10 @@ Can you learn what albedo should be to better predict surface temperatures?
 
 Shortwave albedo over land as measured by the [MODIS](https://en.wikipedia.org/wiki/Moderate_Resolution_Imaging_Spectroradiometer) satellite sensors.
 
+https://github.com/user-attachments/assets/c6116ea3-dfea-4cfa-a890-e97c6609afd7
+
+Shortwave albedo over land, ocean and sea-ice as simulated by SpeedyWeather, including ocean surface roughness (waves), low-angle reflection over water, and learned albedo over land using MODIS as training target.
+
 ## The Chiaroscuro Albedo Challenge
 
 N different variables from the ERA5 reanalysis are available at X.
