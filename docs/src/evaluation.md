@@ -20,8 +20,20 @@ on the last time step against the reference ``T_{ref}`` over all grid points ``i
 
 with weights ``w_i`` the area of each grid cell, so that the many small grid cells near
 the poles don't count more than the large ones near the equator.
-The reference surface temperature is not yet provided, for now a made-up reference of 300K
-at the equator decreasing to 250K at the poles is used.
+The reference surface temperature is read from `data/reference_surface_temperature.nc`
+in the repository, an `OctahedralGaussianGrid` with `nlat_half = 24`, the default grid for
+`SpectralGrid(truncation = 32)` used for all submissions. If you run your simulation on a
+different grid, the reference is interpolated onto it. You can also pass your own
+`reference` field to `evaluate(my_albedo, simulation; reference)`.
+The reference is the time-mean surface air temperature of a SpeedyWeather simulation
+from 15 January to 15 February 2000, run at higher resolution on a `FullGaussianGrid`
+with `nlat_half = 96` and interpolated down, see `data/create_reference.jl`.
+
+```@example evaluation
+using Chiaroscuro, CairoMakie
+reference = Chiaroscuro.reference_surface_temperature()
+heatmap(reference, title = "Reference surface air temperature [K]", colormap = :thermal)
+```
 
 ## Regional scores
 

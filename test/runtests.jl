@@ -37,6 +37,15 @@ using Test
         T = simulation.variables.parameterizations.surface_air_temperature
         @test evaluate(my_albedo, simulation; reference = copy(T)).score == 0
 
+        # reference is read from file on the default grid of truncation 32
+        reference = Chiaroscuro.reference_surface_temperature()
+        @test reference.grid == OctahedralGaussianGrid(24)
+        @test all(200 .< reference.data .< 330)
+
+        # truncation 21 runs on a different grid, the reference is interpolated
+        @test reference.grid != spectral_grid.grid
+        @test Chiaroscuro.reference_surface_temperature(spectral_grid.grid).grid == spectral_grid.grid
+
         # area weights sum to 1
         @test sum(Chiaroscuro.area_weights(spectral_grid.grid)) ≈ 1
     end
