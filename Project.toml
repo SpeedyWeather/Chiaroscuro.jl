@@ -23,7 +23,7 @@ ImageIO = "0.6.10"
 Makie = "0.24.16"
 Proj = "1.9.0"
 RingGrids = "1"
-SpeedyWeather = "0.23, 0.24"
+SpeedyWeather = "0.23, 0.24, 0.25"
 julia = "1.10.10"
 
 [extras]
