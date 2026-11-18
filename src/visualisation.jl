@@ -54,13 +54,13 @@ see [`evaluate`](@ref)."""
 function Makie.heatmap(
         ::ChiaroscuroAlbedo,
         simulation::SpeedyWeather.AbstractSimulation;
-        reference::AbstractField = reference_surface_temperature(simulation.model.spectral_grid.grid),
+        reference::AbstractField = reference_surface_temperature(),
         size = (1200, 620),
     )
     albedo = on_architecture(CPU(), simulation.variables.parameterizations.albedo)
     albedo_difference = albedo .- on_architecture(CPU(), default_albedo(simulation))
     temperature = on_architecture(CPU(), simulation.variables.parameterizations.surface_air_temperature)
-    temperature_difference = temperature .- on_architecture(CPU(), reference)
+    temperature_difference = temperature .- regrid(on_architecture(CPU(), reference), temperature.grid)
 
     fig = Makie.Figure(; size, figure_padding = 10)
     axis_kwargs = (aspect = 2, xticks = 0:60:360, yticks = -60:30:60, titlesize = 12)

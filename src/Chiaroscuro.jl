@@ -3,6 +3,7 @@ module Chiaroscuro
 using SpeedyWeather, Adapt, Dates
 using DocStringExtensions: DocStringExtensions, TYPEDFIELDS
 using RingGrids
+using NCDatasets: NCDataset
 import Makie
 
 using Base: @propagate_inbounds
