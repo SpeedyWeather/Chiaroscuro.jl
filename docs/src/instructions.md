@@ -27,7 +27,16 @@ Look at the [Regional scores](@ref): where are your surface temperatures off the
 Too warm means too little sunlight is reflected, so your albedo is likely too low there, and vice versa.
 You could also aim for the best land, ocean, tropical or polar score first.
 
-## Strategy 4: Sharing is caring
+## Strategy 4: Don't overfit
+
+You only get data for the eastern hemisphere (0˚-180˚E), but your albedo is evaluated
+on the whole globe. The western hemisphere (180˚-360˚E) is held back to compute the
+[Generalisation score](@ref). So an albedo that fits the east perfectly by memorising
+it (e.g. using the longitude `lond`) will likely fail in the west. Albedos based on physical reasoning
+generalise better. To check yourself, hold back part of your eastern-hemisphere data,
+e.g. 90˚-180˚E, and see whether your albedo does equally well there.
+
+## Strategy 5: Sharing is caring
 
 Check the [List of submissions](@ref) for what others have tried.
 Team work is allowed, share your achievements, that's how open source software works!

@@ -35,6 +35,8 @@ The actual problem is:
 
 The [Albedo](@ref) page explains which inputs are available and which operations you can use,
 the [Evaluation](@ref) explains how your albedo is scored. Lower scores are better!
+You only receive data for the eastern hemisphere (0˚-180˚E), the western hemisphere is held
+back to test how well your albedo generalises, see [Generalisation score](@ref).
 
 Contents
 
