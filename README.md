@@ -82,7 +82,7 @@ evaluate(my_albedo, simulation)
 
 # and visualise
 using GLMakie
-globe(my_albedo, simulation)
+heatmap(my_albedo, simulation)
 ```
 
 ## Research directions
