@@ -25,8 +25,15 @@ in the repository, an `OctahedralGaussianGrid` with `nlat_half = 24`, the defaul
 `SpectralGrid(truncation = 32)` used for all submissions. If you run your simulation on a
 different grid, the reference is interpolated onto it. You can also pass your own
 `reference` field to `evaluate(my_albedo, simulation; reference)`.
-For now the file contains a made-up reference of 300K at the equator decreasing to 250K
-at the poles, created with `data/create_reference.jl`.
+The reference is the time-mean surface air temperature of a SpeedyWeather simulation
+from 15 January to 15 February 2000, run at higher resolution on a `FullGaussianGrid`
+with `nlat_half = 96` and interpolated down, see `data/create_reference.jl`.
+
+```@example evaluation
+using Chiaroscuro, CairoMakie
+reference = Chiaroscuro.reference_surface_temperature()
+heatmap(reference, title = "Reference surface air temperature [K]", colormap = :thermal)
+```
 
 ## Regional scores
 
