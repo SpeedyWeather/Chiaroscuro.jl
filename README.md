@@ -1,6 +1,5 @@
 # Chiaroscuro.jl
 [![Build Status](https://github.com/SpeedyWeather/Chiaroscuro.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/SpeedyWeather/Chiaroscuro.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![docs](https://img.shields.io/badge/documentation-latest_release-blue.svg)](https://speedyweather.github.io/Chiaroscuro.jl/stable/)
 [![docs](https://img.shields.io/badge/documentation-main-blue.svg)](https://speedyweather.github.io/Chiaroscuro.jl/dev/)
 
 _Always look on the bright side of light!_ A repository on the [art of light and darkness](https://en.wikipedia.org/wiki/Chiaroscuro) of planet Earth.
@@ -35,6 +34,10 @@ Can you learn what albedo should be to better predict surface temperatures?
 <img width="1347" height="1343" alt="octant_shortwave_1793124601 Background Removed" src="https://github.com/user-attachments/assets/89872a92-6b00-45d5-9cde-7514f30e6dd9" />
 
 Shortwave albedo over land as measured by the [MODIS](https://en.wikipedia.org/wiki/Moderate_Resolution_Imaging_Spectroradiometer) satellite sensors.
+
+https://github.com/user-attachments/assets/c6116ea3-dfea-4cfa-a890-e97c6609afd7
+
+Shortwave albedo over land, ocean and sea-ice as simulated by SpeedyWeather, including ocean surface roughness (waves), low-angle reflection over water, and learned albedo over land using MODIS as training target.
 
 ## The Chiaroscuro Albedo Challenge
 
@@ -79,8 +82,24 @@ evaluate(my_albedo, simulation)
 
 # and visualise
 using GLMakie
-globe(my_albedo, simulation)
+heatmap(my_albedo, simulation)
 ```
+
+## Research directions
+
+Beyond the leaderboard, Chiaroscuro is a playground for open questions in data-driven parameterizations.
+See [Research directions](https://speedyweather.github.io/Chiaroscuro.jl/dev/directions/) in the documentation for more details and ideas.
+
+- **Online performance.** Parameterizations are often trained offline but used online.
+The model world is not the real world, and online there are feedback loops,
+like the ice-albedo feedback, that don't exist offline. Does a better offline fit give a better online score?
+- **Robustness and generalisation.** More predictors may increase skill but overfit,
+or use predictors that are correlated with albedo without causing it.
+Such functions often generalise poorly: to climate change, other climates,
+changed boundary conditions or even other planets.
+- **Uncertainty and model confidence.** No model is perfect, so what to do with the residual error?
+Represent it statistically with noise as an additional input, scaled to the uncertainty of the output.
+Repeated inference with varying noise then samples the uncertainty. Can you match the target distribution?
 
 ## Installation
 

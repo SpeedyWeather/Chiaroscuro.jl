@@ -13,7 +13,7 @@ const NLAYERS = 8
 const PERIOD = Day(30)
 
 # the scores returned by evaluate, first one is the total score used for ranking
-const SCORES = (:score, :land_score, :ocean_score, :tropical_score, :polar_score)
+const SCORES = (:score, :land_score, :ocean_score, :tropical_score, :polar_score, :generalisation_score)
 
 # READ ALL SUBMISSIONS CODE
 submissions = filter(x -> endswith(x, ".jl"), readdir(joinpath(@__DIR__, "../submissions")))
@@ -177,6 +177,7 @@ makedocs(;
             "List of submissions" => "submissions.md",
         ],
         "Python examples" => "python.md",
+        "Research directions" => "directions.md",
         "Functions and types" => "functions_types.md",
     ],
     warnonly = [:missing_docs, :cross_references],

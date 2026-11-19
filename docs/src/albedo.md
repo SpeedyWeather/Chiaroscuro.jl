@@ -88,8 +88,8 @@ just before radiation.
 | :--- | :--- | :---------- |
 | `soil_temperature_1` | K | Temperature of the upper soil layer |
 | `soil_temperature_2` | K | Temperature of the lower soil layer |
-| `soil_moisture_1` | 1 | Soil moisture of the upper soil layer, fraction of capacity |
-| `soil_moisture_2` | 1 | Soil moisture of the lower soil layer, fraction of capacity |
+| `soil_moisture_1` | m^3/m^3 | Soil moisture of the upper soil layer, volumetric |
+| `soil_moisture_2` | m^3/m^3 | Soil moisture of the lower soil layer, volumetric |
 | `snow_depth` | m | Snow depth in liquid water equivalent |
 | `snow_cover` | 1 | Fraction of the land covered by snow, 0 to 1, computed from `snow_depth` as `snow_depth / (snow_depth + 0.05m)` as in SpeedyWeather's default albedo |
 | `high_vegetation_cover` | 1 | Fraction of the grid cell covered by high vegetation (e.g. forest), 0 to 1 |

@@ -28,7 +28,7 @@ using Test
 
     @testset "evaluate" begin
         evaluation = evaluate(my_albedo, simulation)
-        for key in (:score, :land_score, :ocean_score, :tropical_score, :polar_score)
+        for key in (:score, :land_score, :ocean_score, :tropical_score, :polar_score, :generalisation_score)
             @test isfinite(evaluation[key])
             @test evaluation[key] >= 0
         end
@@ -36,6 +36,23 @@ using Test
         # perfect agreement with the reference gives zero error
         T = simulation.variables.parameterizations.surface_air_temperature
         @test evaluate(my_albedo, simulation; reference = copy(T)).score == 0
+
+        # generalisation score only sees the western hemisphere (180˚-360˚E)
+        reference_west = copy(T)
+        londs, _ = RingGrids.get_londlatds(reference_west.grid)
+        reference_west.data[londs .< 180] .+= 10     # error only in the eastern hemisphere
+        evaluation = evaluate(my_albedo, simulation; reference = reference_west)
+        @test evaluation.generalisation_score == 0
+        @test evaluation.score > 0
+
+        # reference is read from file on the default grid of truncation 32
+        reference = Chiaroscuro.reference_surface_temperature()
+        @test reference.grid == OctahedralGaussianGrid(24)
+        @test all(200 .< reference.data .< 330)
+
+        # truncation 21 runs on a different grid, the reference is interpolated
+        @test reference.grid != spectral_grid.grid
+        @test Chiaroscuro.reference_surface_temperature(spectral_grid.grid).grid == spectral_grid.grid
 
         # area weights sum to 1
         @test sum(Chiaroscuro.area_weights(spectral_grid.grid)) ≈ 1

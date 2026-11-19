@@ -4,10 +4,12 @@ Chiaroscuro = "ef28b67d-62c9-445f-88f3-00f7cc5b8007"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
-RingGrids = "d1845624-ad4f-453b-8ff4-a8db365bf3a7"
 SpeedyWeather = "9e226e20-d153-4fed-8a5b-493def4f21a9"
 
 [sources]
 Chiaroscuro = {path = ".."}
-SpeedyWeather = {url = "https://github.com/SpeedyWeather/SpeedyWeather.jl", subdir = "SpeedyWeather", rev = "main"}
-RingGrids = {url = "https://github.com/SpeedyWeather/SpeedyWeather.jl", subdir = "RingGrids", rev = "main"}
+
+[compat]
+CairoMakie = "0.15.17"
+Documenter = "1.20.0"
+Printf = "<0.0.1, 1"
