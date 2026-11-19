@@ -111,3 +111,13 @@ julia> ] add https://github.com/SpeedyWeather/Chiaroscuro.jl
 
 where `]` opens Julia's package manager Pkg.jl.
 
+
+## JASMIN setup
+
+We have set up the whole environment and included some demo scripts for inspiration. To use this setup:
+
+1. [Request access to group workspace](https://accounts.jasmin.ac.uk/services/group_workspaces/?query=era5_physical_process)
+2. SSH onto an sci nodes
+3. find out what group you are in
+4. run `cd /gws/ssde/j25b/era5_physical_process_dataset/climate_modelling26/groups/group<your_group_number>`
+5. Read the `readme.md` and get Chiaroscuro'ing 
