@@ -52,14 +52,14 @@ end
 
 """$(TYPEDSIGNATURES)
 Evaluate the surface air temperature on the last time step of `simulation` that used the
-`albedo` against a `reference` surface temperature, read from file by default and
+`albedo` (any `SpeedyWeather.AbstractAlbedo`, e.g. a `ChiaroscuroAlbedo` or SpeedyWeather's default) against a `reference` surface temperature, read from file by default and
 interpolated onto the simulation's grid if they differ. Returns a `NamedTuple` of area-weighted root
 mean square errors [K] globally (`score`) and over land, ocean, the tropics (30˚S-30˚N) and
 polar regions (poleward of 60˚N/S). Land and ocean are weighted by the land fraction of each grid cell.
 The `generalisation_score` is evaluated over the western hemisphere (180˚-360˚E) only, for which
 no reference data is given to the participants, who only receive data for the eastern hemisphere (0˚-180˚E)."""
 function evaluate(
-        albedo::ChiaroscuroAlbedo,
+        albedo::SpeedyWeather.AbstractAlbedo,
         simulation::SpeedyWeather.AbstractSimulation;
         reference::AbstractField = reference_surface_temperature(),
     )

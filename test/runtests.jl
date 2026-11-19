@@ -69,4 +69,15 @@ using Test
         fig = Chiaroscuro.Makie.heatmap(my_albedo, simulation)
         @test fig isa Chiaroscuro.Makie.Figure
     end
+
+    @testset "any AbstractAlbedo" begin
+        # evaluate and heatmap also work with SpeedyWeather's default albedo
+        default_model = PrimitiveWetModel(spectral_grid)
+        default_simulation = initialize!(default_model)
+        run!(default_simulation, period = Day(1))
+        evaluation = evaluate(default_model.albedo, default_simulation)
+        @test isfinite(evaluation.score)
+        fig = Chiaroscuro.Makie.heatmap(default_model.albedo, default_simulation)
+        @test fig isa Chiaroscuro.Makie.Figure
+    end
 end

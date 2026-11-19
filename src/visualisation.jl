@@ -27,7 +27,7 @@ SpeedyWeather's default albedo (top right), the surface air temperature (bottom 
 its difference to the `reference` surface temperature it is evaluated against (bottom right),
 see [`evaluate`](@ref)."""
 function Makie.heatmap(
-        ::ChiaroscuroAlbedo,
+        ::SpeedyWeather.AbstractAlbedo,
         simulation::SpeedyWeather.AbstractSimulation;
         reference::AbstractField = reference_surface_temperature(),
         size = (1200, 620),
