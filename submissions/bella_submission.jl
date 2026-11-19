@@ -3,8 +3,9 @@ description = "Symbolic regression of a neural network with additional variables
 
 function albedo(inputs)
     (; land_fraction, sea_ice_concentration) = inputs
-    (; snowc, high_vegetation_cover, low_vegetation_cover, soil_moisture_1) = inputs
-
+    (; snow_cover, high_vegetation_cover, low_vegetation_cover, soil_moisture_1) = inputs
+    snowc = snow_cover
+    
     # land: Bella fitted equation
     land = exp(
         (snowc - (high_vegetation_cover +
