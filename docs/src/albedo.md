@@ -231,5 +231,14 @@ default albedo (top right), and below the surface air temperature (bottom left) 
 difference to the reference surface temperature (bottom right) which is what your albedo
 is scored on, see [Evaluation](@ref). All on the last time step of the simulation.
 The default albedo blends open ocean (0.06) and sea ice (0.6) by sea ice concentration,
-and over land bare soil, vegetation and snow cover.
+and over land bare soil, vegetation and snow cover. It is read from `data/default_albedo.nc`,
+the albedo after 30 days of a default `PrimitiveWetModel` simulation at the challenge's resolution
+(see `data/create_default_albedo.jl`), and interpolated if your simulation runs on a different grid.
+
+```@example albedo_default
+using Chiaroscuro, CairoMakie
+default = Chiaroscuro.default_albedo()
+heatmap(default, title = "Default albedo", colormap = :grays, colorrange = (0, 1))
+```
+
 The same plot is also shown for every submission in the [List of submissions](@ref).

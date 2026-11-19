@@ -1,44 +1,19 @@
-"""$(TYPEDSIGNATURES)
-Albedo on the last time step of `simulation` as computed by SpeedyWeather's default
-`OceanLandAlbedo`, combining ocean and land albedo with the land fraction as in the shortwave radiation."""
-function default_albedo(simulation::SpeedyWeather.AbstractSimulation)
-    (; model, variables) = simulation
-    scheme = OceanLandAlbedo(model.spectral_grid)
-    SpeedyWeather.initialize!(scheme, model)
-
-    # the default albedo may write into variables (e.g. black/white-sky albedo of the
-    # LearnedLandAlbedo) that a simulation with ChiaroscuroAlbedo doesn't allocate, add them
-    variables = with_default_albedo_variables(variables, scheme)
-
-    ocean = similar(variables.parameterizations.ocean.albedo)
-    land = similar(variables.parameterizations.land.albedo)
-    for ij in eachindex(ocean)
-        SpeedyWeather.albedo!(ij, ocean, variables, scheme.ocean, model)
-        SpeedyWeather.albedo!(ij, land, variables, scheme.land, model)
-    end
-
-    land_fraction = model.land_sea_mask.land_fraction
-    return @. (1 - land_fraction) * ocean + land_fraction * land
-end
+"""Path to the default albedo file, SpeedyWeather's default albedo after a 30-day default
+`PrimitiveWetModel` simulation on an `OctahedralGaussianGrid` with `nlat_half = 24`, stored as NetCDF."""
+const DEFAULT_ALBEDO_FILE = joinpath(@__DIR__, "..", "data", "default_albedo.nc")
 
 """$(TYPEDSIGNATURES)
-Return `variables` with the parameterization variables of the `scheme` added that are missing
-in `variables.parameterizations` (e.g. because the simulation used a different albedo),
-allocated as 2D fields like the albedo itself. Existing variables are not copied."""
-function with_default_albedo_variables(variables::SpeedyWeather.Variables, scheme)
-    parameterizations = variables.parameterizations
-    for var in SpeedyWeather.variables(scheme)
-        var isa SpeedyWeather.ParameterizationVariable || continue
-        namespace = var.namespace
-        toplevel = namespace == Symbol("")
-        group = toplevel ? parameterizations : getproperty(parameterizations, namespace)
-        haskey(group, var.name) && continue
-        group = merge(group, NamedTuple{(var.name,)}((similar(parameterizations.albedo),)))
-        parameterizations = toplevel ? group : merge(parameterizations, NamedTuple{(namespace,)}((group,)))
-    end
-    fields = fieldnames(SpeedyWeather.Variables)
-    return SpeedyWeather.Variables(; (field => getfield(variables, field) for field in fields)..., parameterizations)
-end
+SpeedyWeather's default albedo read from `path` (default `Chiaroscuro.DEFAULT_ALBEDO_FILE`)
+as a `Field` on the grid it is stored on, see `data/create_default_albedo.jl`."""
+default_albedo(path::AbstractString = DEFAULT_ALBEDO_FILE) = read_field(path, "albedo")
+
+"""$(TYPEDSIGNATURES)
+SpeedyWeather's default albedo on `grid`, interpolated from the file's grid if they differ."""
+default_albedo(grid::RingGrids.AbstractGrid) = regrid(default_albedo(), grid)
+
+"""$(TYPEDSIGNATURES)
+SpeedyWeather's default albedo read from file on the grid of `simulation`."""
+default_albedo(simulation::SpeedyWeather.AbstractSimulation) = default_albedo(simulation.model.spectral_grid.grid)
 
 # full field as matrix with lon, lat axes in degrees
 function lonlat_matrix(field::AbstractField)

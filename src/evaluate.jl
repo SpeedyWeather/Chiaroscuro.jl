@@ -5,17 +5,22 @@ export evaluate
 const REFERENCE_FILE = joinpath(@__DIR__, "..", "data", "reference_surface_temperature.nc")
 
 """$(TYPEDSIGNATURES)
-Read the reference surface temperature [K] from `path` (default `Chiaroscuro.REFERENCE_FILE`)
-as a `Field` on the grid it is stored on. The file contains a vector `surface_temperature`
-with the grid points in ring order and the global attributes `grid` (the grid type) and `nlat_half`."""
-function reference_surface_temperature(path::AbstractString = REFERENCE_FILE)
+Read the variable `name` from the NetCDF file at `path` as a `Field` on the grid it is stored on.
+The file contains a vector `name` with the grid points in ring order and the global attributes
+`grid` (the grid type) and `nlat_half`."""
+function read_field(path::AbstractString, name::AbstractString)
     return NCDataset(path) do ds
         Grid = getproperty(RingGrids, Symbol(ds.attrib["grid"]))
         grid = Grid(Int(ds.attrib["nlat_half"]))
-        data = Vector{Float32}(ds["surface_temperature"][:])
+        data = Vector{Float32}(ds[name][:])
         Field(data, grid)
     end
 end
+
+"""$(TYPEDSIGNATURES)
+Read the reference surface temperature [K] from `path` (default `Chiaroscuro.REFERENCE_FILE`)
+as a `Field` on the grid it is stored on, see [`read_field`](@ref)."""
+reference_surface_temperature(path::AbstractString = REFERENCE_FILE) = read_field(path, "surface_temperature")
 
 """$(TYPEDSIGNATURES)
 Reference surface temperature [K] on `grid`, interpolated from the file's grid if they differ."""
