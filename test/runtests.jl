@@ -60,8 +60,12 @@ using Test
 
     @testset "heatmap" begin
         # default albedo is a valid albedo
-        default = Chiaroscuro.default_albedo(simulation)
+        default = Chiaroscuro.default_albedo()
+        @test default.grid == OctahedralGaussianGrid(24)
         @test all(0 .<= default.data .<= 1)
+
+        # interpolated onto the simulation's grid (truncation 21)
+        @test Chiaroscuro.default_albedo(simulation).grid == simulation.model.spectral_grid.grid
         fig = Chiaroscuro.Makie.heatmap(my_albedo, simulation)
         @test fig isa Chiaroscuro.Makie.Figure
     end
