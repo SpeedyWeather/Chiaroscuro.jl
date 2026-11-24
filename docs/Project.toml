@@ -12,3 +12,4 @@ Chiaroscuro = {path = ".."}
 CairoMakie = "0.15.17"
 Documenter = "1.20.0"
 Printf = "<0.0.1, 1"
+SpeedyWeather = "0.25.0"
